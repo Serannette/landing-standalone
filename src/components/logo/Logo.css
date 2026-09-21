@@ -1,0 +1,17 @@
+.al-logo{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:600;
+  line-height:1;
+}
+.al-logo-mark{ flex-shrink:0; object-fit:contain; }
+.al-logo-word{ font-size:17px; letter-spacing:-0.01em; }
+.al-logo-word b{ font-weight:700; }
+
+.al-logo--dark .al-logo-word{ color:var(--ink-0); }
+.al-logo--dark .al-logo-word b{ color:var(--gold-400); }
+
+.al-logo--light .al-logo-word{ color:var(--text-900); }
+.al-logo--light .al-logo-word b{ color:var(--gold-600); }

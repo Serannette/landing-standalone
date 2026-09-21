@@ -1,0 +1,64 @@
+.ui-modal-overlay{
+  position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center;
+  background:rgba(4,10,31,0.55); backdrop-filter:blur(4px); padding:20px;
+  animation:ui-modal-fade 0.15s ease;
+}
+@keyframes ui-modal-fade{ from{ opacity:0; } to{ opacity:1; } }
+
+.ui-modal-window{
+  position:relative;
+  width:100%; background:var(--paper-raised); border:1px solid var(--border-soft);
+  border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); padding:26px;
+  animation:ui-modal-pop 0.2s cubic-bezier(.2,.9,.3,1.2);
+  max-height:calc(100vh - 40px); overflow-y:auto;
+  transition:max-width 0.25s ease; /* smooth resize when a modal swaps between steps */
+}
+
+.ui-modal-close{
+  position:absolute; top:14px; right:14px; z-index:1;
+  width:30px; height:30px; border-radius:50%; border:1px solid var(--border-soft);
+  background:var(--paper-sunken); color:var(--text-500);
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  transition:background 0.15s, color 0.15s, border-color 0.15s;
+}
+.ui-modal-close:hover{ background:var(--paper-raised); color:var(--text-900); border-color:var(--border-strong); }
+@keyframes ui-modal-pop{
+  from{ opacity:0; transform:scale(0.96) translateY(4px); }
+  to{ opacity:1; transform:scale(1) translateY(0); }
+}
+
+.ui-modal-icon-badge{
+  width:46px; height:46px; margin:0 auto 16px; border-radius:13px;
+  display:flex; align-items:center; justify-content:center;
+}
+.ui-modal-icon-badge--gold{
+  background:linear-gradient(135deg, var(--gold-500), var(--gold-400)); color:var(--cobalt-950);
+  box-shadow:0 8px 20px -6px rgba(232,185,58,0.5);
+}
+.ui-modal-icon-badge--danger{
+  background:linear-gradient(135deg, #ff8686, var(--danger)); color:#fff;
+  box-shadow:0 8px 20px -6px rgba(255,107,107,0.5);
+}
+.ui-modal-icon-badge--brand{
+  background:var(--brand-soft); color:var(--cobalt-600); border:1px solid rgba(58,99,224,0.18);
+}
+
+.ui-modal-eyebrow{
+  font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--gold-600); margin:0 0 8px; text-align:center;
+}
+.ui-modal-title{
+  font-family:'Space Grotesk',sans-serif; font-size:18.5px; font-weight:600; color:var(--text-900);
+  margin:0 0 10px; text-align:center;
+}
+.ui-modal-message{
+  font-size:13.5px; line-height:1.55; color:var(--text-600); margin:0 0 22px; text-align:center;
+}
+.ui-modal-message b{ color:var(--text-900); font-weight:600; }
+
+.ui-modal-actions{ display:flex; gap:10px; }
+.ui-modal-actions .ui-btn{ flex:1; }
+
+@media (prefers-reduced-motion: reduce){
+  .ui-modal-overlay, .ui-modal-window{ animation:none !important; }
+}

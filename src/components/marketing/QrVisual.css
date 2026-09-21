@@ -1,0 +1,41 @@
+.al-qr-shell{ position:relative; width:280px; height:280px; }
+.al-qr-frame-corner{ position:absolute; width:34px; height:34px; border-color:var(--gold-400); }
+.al-qr-frame-corner.tl{top:-14px;left:-14px;border-top:3px solid;border-left:3px solid;border-radius:6px 0 0 0;}
+.al-qr-frame-corner.tr{top:-14px;right:-14px;border-top:3px solid;border-right:3px solid;border-radius:0 6px 0 0;}
+.al-qr-frame-corner.bl{bottom:-14px;left:-14px;border-bottom:3px solid;border-left:3px solid;border-radius:0 0 0 6px;}
+.al-qr-frame-corner.br{bottom:-14px;right:-14px;border-bottom:3px solid;border-right:3px solid;border-radius:0 0 6px 0;}
+.al-qr-grid{
+  width:100%;height:100%; display:grid; grid-template-columns:repeat(11,1fr); grid-template-rows:repeat(11,1fr);
+  gap:4px; padding:18px; background:rgba(10,26,74,0.55); border:1px solid rgba(255,255,255,0.08);
+  border-radius:18px; backdrop-filter:blur(2px);
+}
+.al-qr-cell{ border-radius:2px; background:rgba(255,255,255,0.05); }
+.al-qr-cell.on{ background:var(--cobalt-400); }
+.al-qr-cell.anchor{ background:var(--gold-400); }
+.al-scan-beam{
+  position:absolute; left:6%; right:6%; height:3px;
+  background:linear-gradient(90deg, transparent, var(--gold-300) 20%, var(--gold-400) 50%, var(--gold-300) 80%, transparent);
+  box-shadow:0 0 16px 3px rgba(255,204,77,0.65), 0 0 40px 8px rgba(255,204,77,0.25);
+  border-radius:4px; animation:al-sweep 2.4s cubic-bezier(.65,0,.35,1) infinite;
+}
+@keyframes al-sweep{
+  0%{top:6%; opacity:0;} 8%{opacity:1;} 50%{top:94%; opacity:1;} 58%{opacity:0;} 100%{top:94%; opacity:0;}
+}
+.al-photon{
+  position:absolute; width:5px;height:5px; border-radius:50%; background:var(--gold-300);
+  box-shadow:0 0 6px 2px rgba(255,224,138,0.7); opacity:0; animation:al-photon-arc 2.4s ease-in-out infinite;
+}
+@keyframes al-photon-arc{
+  0%{opacity:0; transform:translate(0,0) scale(0.4);} 10%{opacity:1;} 50%{opacity:0.9;}
+  85%{opacity:0.15;} 100%{opacity:0; transform:translate(var(--dx,40px), 210px) scale(1);}
+}
+.al-pulse-ring{
+  position:absolute; inset:0; border-radius:18px; border:1px solid rgba(255,204,77,0.5);
+  opacity:0; animation:al-pulse-out 2.4s ease-out infinite;
+}
+@keyframes al-pulse-out{
+  0%{opacity:0; transform:scale(0.96);} 12%{opacity:0.55;} 45%{opacity:0; transform:scale(1.18);} 100%{opacity:0;}
+}
+@media (prefers-reduced-motion: reduce){
+  .al-scan-beam, .al-photon, .al-pulse-ring{ animation:none !important; }
+}

@@ -1,0 +1,34 @@
+.nim-overlay{
+  position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center;
+  background:rgba(4,10,31,0.55); backdrop-filter:blur(4px); padding:20px;
+  animation:nim-fade 0.15s ease;
+}
+@keyframes nim-fade{ from{ opacity:0; } to{ opacity:1; } }
+
+.nim-window{
+  width:100%; max-width:340px; background:var(--paper-raised); border:1px solid var(--border-soft);
+  border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); padding:28px 26px 24px; text-align:center;
+  animation:nim-pop 0.2s cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes nim-pop{
+  from{ opacity:0; transform:scale(0.94) translateY(4px); }
+  to{ opacity:1; transform:scale(1) translateY(0); }
+}
+
+.nim-icon-badge{
+  width:46px; height:46px; margin:0 auto 16px; border-radius:13px;
+  background:linear-gradient(135deg, var(--gold-500), var(--gold-400)); color:var(--cobalt-950);
+  display:flex; align-items:center; justify-content:center; box-shadow:0 8px 20px -6px rgba(232,185,58,0.5);
+}
+
+.nim-eyebrow{
+  font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--gold-600); margin:0 0 8px;
+}
+.nim-window h2{ font-family:'Space Grotesk',sans-serif; font-size:18.5px; font-weight:600; color:var(--text-900); margin:0 0 10px; }
+.nim-message{ font-size:13.5px; line-height:1.55; color:var(--text-600); margin:0 0 22px; }
+.nim-message b{ color:var(--text-900); font-weight:600; }
+
+@media (prefers-reduced-motion: reduce){
+  .nim-overlay, .nim-window{ animation:none !important; }
+}

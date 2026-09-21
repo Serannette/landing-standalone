@@ -1,0 +1,40 @@
+.al-role-hint{
+  font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--ink-2); background:rgba(255,255,255,0.03);
+  border:1px dashed rgba(255,255,255,0.14); border-radius:9px; padding:10px 12px; line-height:1.6;
+}
+.al-role-hint b{ color:var(--gold-400); font-weight:500; }
+
+/* Role slideshow — wiping text transition */
+.al-role-slideshow{
+  position:relative;
+  overflow:hidden;
+  height:38px;
+  display:flex;
+  align-items:center;
+}
+.al-role-slide{
+  position:absolute;
+  left:12px;
+  right:12px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.al-role-slide span{ color:var(--ink-2); font-weight:400; margin-left:6px; }
+.al-role-slide--in{
+  animation:al-wipe-in 0.5s cubic-bezier(.65,0,.35,1) forwards;
+}
+.al-role-slide--out{
+  animation:al-wipe-out 0.5s cubic-bezier(.65,0,.35,1) forwards;
+}
+@keyframes al-wipe-in{
+  0%{ clip-path:inset(0 100% 0 0); transform:translateX(-6px); opacity:0.4; }
+  100%{ clip-path:inset(0 0 0 0); transform:translateX(0); opacity:1; }
+}
+@keyframes al-wipe-out{
+  0%{ clip-path:inset(0 0 0 0); transform:translateX(0); opacity:1; }
+  100%{ clip-path:inset(0 0 0 100%); transform:translateX(6px); opacity:0; }
+}
+@media (prefers-reduced-motion: reduce){
+  .al-role-slide--in, .al-role-slide--out{ animation:none !important; clip-path:none !important; opacity:1 !important; }
+}

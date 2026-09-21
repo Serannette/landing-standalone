@@ -1,0 +1,43 @@
+/* Cards share one grid cell and are moved with transforms so the row can loop forever. */
+.cc-track{
+  --gap:18px;
+  display:grid; grid-template-columns:minmax(0, 1fr); justify-items:start; align-items:stretch;
+  /* extend 24px past the content edge so the fade lives outside the first card */
+  margin:0 -24px; padding:6px 24px 10px; overflow:hidden; outline:none;
+  cursor:grab; user-select:none; touch-action:pan-y;
+  -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 48px), transparent 100%);
+          mask-image:linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 48px), transparent 100%);
+}
+.cc-track.is-dragging{ cursor:grabbing; }
+.cc-track:focus-visible{ outline:2px solid var(--gold-400); outline-offset:4px; border-radius:14px; }
+
+.cc-item{ grid-area:1 / 1; width:310px; display:flex; will-change:transform; }
+.cc-item > *{ flex:1; }
+
+.cc-controls{ display:flex; align-items:center; gap:22px; margin-top:22px; }
+.cc-dots{ flex:1; display:flex; justify-content:center; gap:8px; }
+.cc-dot{
+  width:8px; height:8px; padding:0; border:none; border-radius:100px; cursor:pointer;
+  background:rgba(255,255,255,0.22); transition:width 0.3s ease, background 0.3s ease;
+}
+.cc-dot:hover{ background:rgba(255,255,255,0.4); }
+.cc-dot.is-active{ width:26px; background:linear-gradient(96deg, var(--gold-500), var(--gold-400)); }
+.cc-dot:focus-visible{ outline:2px solid var(--gold-400); outline-offset:3px; }
+
+.cc-arrows{ display:flex; gap:8px; }
+.cc-arrow{
+  width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:rgba(255,255,255,0.04); color:var(--ink-0); border:1px solid rgba(255,255,255,0.16); cursor:pointer;
+  transition:background 0.2s, border-color 0.2s, color 0.2s;
+}
+.cc-arrow:hover{ background:rgba(232,185,58,0.16); border-color:rgba(232,185,58,0.6); color:var(--gold-400); }
+.cc-arrow:focus-visible{ outline:2px solid var(--gold-400); outline-offset:2px; }
+
+@media (max-width:640px){
+  .cc-item{ width:262px; }
+  .cc-arrows{ display:none; }
+  .cc-controls{ gap:16px; }
+  .cc-dots{ gap:6px; }
+  .cc-dot.is-active{ width:20px; }
+}
+@media (prefers-reduced-motion:reduce){ .cc-dot{ transition:none; } }

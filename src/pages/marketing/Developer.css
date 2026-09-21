@@ -1,0 +1,187 @@
+.dv-hero{
+  position:relative; overflow:hidden;
+  min-height:calc(100vh - 68px);
+  display:flex; align-items:center;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(58,99,224,0.28), transparent 50%),
+    radial-gradient(circle at 85% 75%, rgba(232,185,58,0.08), transparent 50%),
+    linear-gradient(160deg, var(--cobalt-900) 0%, var(--cobalt-950) 70%);
+  padding:64px 24px;
+}
+/* static grid backdrop, no motion */
+.dv-hero::before{
+  content:'';
+  position:absolute; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(109,141,255,0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(109,141,255,0.09) 1px, transparent 1px);
+  background-size:42px 42px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 40%, black 40%, transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 40%, black 40%, transparent 100%);
+}
+/* a few static accent shapes for depth */
+.dv-hero::after{
+  content:'';
+  position:absolute; z-index:0; pointer-events:none;
+  top:10%; right:8%; width:220px; height:220px;
+  border:1px solid rgba(232,185,58,0.18); border-radius:24px;
+  transform:rotate(18deg);
+}
+.dv-hero-inner{
+  position:relative; z-index:1;
+  max-width:1180px; margin:0 auto; width:100%;
+  display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;
+}
+@media (max-width:900px){
+  .dv-hero-inner{ grid-template-columns:1fr; gap:48px; }
+}
+
+/* Left column — intro */
+.dv-boot-tag{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--gold-400); border:1px solid rgba(232,185,58,0.3); background:rgba(232,185,58,0.08);
+  border-radius:100px; padding:6px 14px; margin-bottom:22px;
+}
+.dv-blink-dot{
+  width:6px; height:6px; border-radius:50%; background:var(--gold-400);
+  animation:dv-blink 1.6s ease-in-out infinite;
+}
+@keyframes dv-blink{ 0%,100%{ opacity:1; } 50%{ opacity:0.25; } }
+
+.dv-name{
+  font-family:'Space Grotesk',sans-serif; font-weight:700; line-height:1.05;
+  font-size:clamp(36px, 6vw, 56px); color:var(--ink-0); margin:0 0 20px;
+}
+.dv-accent-dot{ color:var(--gold-400); }
+.dv-name-gradient{
+  background:linear-gradient(96deg, #6d8dff, var(--gold-400));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+
+.dv-lede{ color:var(--ink-2); font-size:15.5px; line-height:1.65; max-width:480px; margin:0 0 18px; }
+
+/* animated typing line, ported from profile.zip's TypingText */
+.dv-typing-row{
+  display:flex; align-items:center; height:26px; margin-bottom:22px;
+  font-family:'JetBrains Mono',monospace; font-size:14px; color:#6d8dff;
+}
+.dv-typing-cursor{
+  display:inline-block; width:2px; height:1em; margin-left:2px;
+  background:currentColor; animation:dv-blink 1s step-end infinite;
+}
+
+.dv-cta-row{ display:flex; flex-wrap:wrap; align-items:center; gap:16px; }
+.dv-portfolio-link{
+  display:inline-flex; align-items:center; gap:8px;
+  color:var(--cobalt-950); background:linear-gradient(96deg, var(--gold-500), var(--gold-400));
+  font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px;
+  padding:13px 24px; border-radius:9px; text-decoration:none;
+  box-shadow:0 6px 20px -6px rgba(232,185,58,0.5);
+  transition:transform 0.15s ease, box-shadow 0.2s ease;
+}
+.dv-portfolio-link:hover{ transform:translateY(-1px); box-shadow:0 10px 26px -6px rgba(232,185,58,0.6); }
+.dv-connect-link{
+  color:var(--ink-1); font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px;
+  padding:13px 22px; border-radius:9px; border:1px solid rgba(255,255,255,0.14);
+  text-decoration:none; transition:border-color 0.2s ease, color 0.2s ease;
+}
+.dv-connect-link:hover{ border-color:var(--gold-400); color:var(--gold-400); }
+
+/* Right column — ID badge */
+.dv-badge-wrap{ position:relative; max-width:400px; margin:0 auto; }
+
+/* entrance animation, ported from profile.zip's Hero (framer-motion fade/slide-in) */
+@keyframes dv-badge-enter{
+  from{ opacity:0; transform:translateY(40px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+.dv-badge-in{
+  animation:dv-badge-enter 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+}
+/* rotation lives on its own inner layer so it never fights the entrance animation */
+.dv-badge-rotate{
+  position:relative;
+  transform:rotate(-2deg);
+  transition:transform 0.3s ease;
+}
+.dv-badge-wrap:hover .dv-badge-rotate{ transform:rotate(0deg); }
+
+/* lanyard slot: sits fully INSIDE the badge (it used to straddle the top edge and read as a stray black blob) */
+.dv-badge-hole{
+  position:absolute; top:14px; left:50%; transform:translateX(-50%); z-index:2;
+  width:84px; height:16px; border-radius:100px; background:rgb(4,8,15);
+  border:1px solid rgba(255,255,255,0.12);
+  box-shadow:inset 0 2px 4px rgba(0,0,0,0.7), 0 1px 0 rgba(255,255,255,0.06);
+}
+.dv-badge{
+  position:relative; z-index:0; overflow:hidden;
+  background:linear-gradient(175deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  border:1px solid rgba(255,255,255,0.1); border-radius:20px;
+  padding:50px 26px 28px; box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
+}
+
+/* continuous scanline sweep, ported from profile.zip's .scanline */
+@keyframes dv-scan{
+  0%{ transform:translateY(-100%); }
+  100%{ transform:translateY(100%); }
+}
+.dv-badge-scanline{
+  position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:1;
+}
+.dv-badge-scanline::after{
+  content:''; position:absolute; left:0; right:0; height:40%;
+  background:linear-gradient(to bottom, transparent, rgba(109,141,255,0.18), transparent);
+  animation:dv-scan 5s linear infinite;
+}
+
+/* fine noise texture, ported from profile.zip's .texture-noise */
+.dv-badge-noise{
+  position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0.6;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+.dv-badge-row{
+  position:relative; z-index:2;
+  display:flex; align-items:center; justify-content:space-between;
+  font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--ink-2);
+}
+.dv-badge-id{ display:flex; align-items:center; gap:5px; }
+
+/* status dot: blinks while scanning, settles solid once access is granted */
+.dv-status-dot{ width:6px; height:6px; border-radius:50%; }
+.dv-status-dot.is-scanning{ background:#6d8dff; animation:dv-blink 1.1s ease-in-out infinite; }
+.dv-status-dot.is-granted{ background:var(--gold-400); animation:none; }
+
+.dv-badge-photo{
+  position:relative; z-index:2;
+  width:156px; height:156px; margin:20px auto 0; border-radius:16px; overflow:hidden;
+  border:1px solid rgba(232,185,58,0.35);
+}
+.dv-badge-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+.dv-badge-name{ position:relative; z-index:2; text-align:center; margin-top:16px; }
+.dv-badge-name p{ font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:600; color:var(--ink-0); margin:0; }
+.dv-badge-name span{ font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--gold-400); }
+
+.dv-badge-meta{
+  position:relative; z-index:2;
+  margin-top:18px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.08);
+  display:flex; flex-direction:column; gap:8px;
+  font-family:'JetBrains Mono',monospace; font-size:11.5px;
+}
+.dv-badge-meta div{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.dv-badge-meta div > span:first-child{ color:var(--ink-2); }
+.dv-badge-meta div > span:last-child{ color:var(--ink-1); text-align:right; }
+
+/* status text: "Verifying…" pulses blue while scanning, settles to gold "Access Granted" */
+.dv-badge-status{ transition:color 0.3s ease; }
+.dv-badge-status.is-scanning{ color:#6d8dff !important; animation:dv-blink 1.1s ease-in-out infinite; }
+.dv-badge-status.is-granted{ color:var(--gold-400) !important; animation:none; }
+
+.dv-badge-barcode{
+  position:relative; z-index:2;
+  margin-top:16px; height:22px; display:flex; align-items:flex-end; gap:2px; opacity:0.7;
+}
+.dv-badge-barcode span{ flex:1; background:var(--gold-400); }

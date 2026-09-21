@@ -1,0 +1,15 @@
+.sw-hint{
+  display:inline-flex; align-items:center; gap:10px; padding:7px 14px; border-radius:100px;
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12);
+  color:var(--gold-400); font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.1em;
+  text-transform:uppercase; white-space:nowrap; user-select:none;
+  transition:opacity 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+.sw-arrow{ flex:none; }
+.sw-arrow--l{ animation:sw-nudge-l 1.6s ease-in-out infinite; }
+.sw-arrow--r{ animation:sw-nudge-r 1.6s ease-in-out infinite; }
+@keyframes sw-nudge-l{ 0%,100%{ transform:translateX(0); } 50%{ transform:translateX(-5px); } }
+@keyframes sw-nudge-r{ 0%,100%{ transform:translateX(0); } 50%{ transform:translateX(5px); } }
+.sw-hint.is-done{ opacity:0.55; color:var(--ink-2); border-color:rgba(255,255,255,0.08); }
+.sw-hint.is-done .sw-arrow{ animation:none; }
+@media (prefers-reduced-motion:reduce){ .sw-arrow{ animation:none !important; } }
